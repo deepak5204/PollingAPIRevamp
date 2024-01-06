@@ -1,11 +1,16 @@
-const mongoose = require('mongoose');
+const express = require("express");
+const connectDB = require("./src/config/db");
+const routerManager = require("./src/routes/router.manager");
 
-const uri = 'mongodb://127.0.0.1:27017/test'
+const app = express();
+const port = 5000;
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-mongoose.connect(uri)
-.then(
-    console.log('db connected successfully')
-)
-.catch((err)=>{
-    console.log(err)
-})
+app.use("/", routerManager);
+app.listen(port, (err) => {
+  if (err) {
+    console.log(err);
+  }
+  console.log(`Server is running on port ${port}`);
+});
