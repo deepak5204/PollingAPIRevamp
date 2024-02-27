@@ -5,6 +5,14 @@ const {promisify} = require('util');
 module.exports.signUp = async(req, res) => {
     const {name, email, phoneNo, password} = req.body
 
+    const user = await User.find({email});
+    if(user){
+        res.status(400).json({
+            status: false,
+            message: 'User already exist....!'
+        })
+    }
+
     const userData = await User.create({
         name,
         email,
@@ -68,7 +76,6 @@ module.exports.protect = async(req, res, next) => {
     }
 
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET)
-    console.log('decoded--------', decoded.userId);
 
     const currentUser = await User.findById(decoded.userId);
 
