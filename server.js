@@ -5,7 +5,7 @@ const routerManager = require("./src/routes/router.manager");
 const cors = require('cors')
 const app = express();
 
-dotenv.config({path: './src/config/config.env'})
+dotenv.config({path: './config.env'})
 
 const port = 5000;
 app.use(express.urlencoded({ extended: true }));

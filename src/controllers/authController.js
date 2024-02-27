@@ -1,5 +1,6 @@
 const User = require('../modals/User');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const {promisify} = require('util');
 
 module.exports.signUp = async(req, res) => {
     const {name, email, phoneNo, password} = req.body
@@ -30,13 +31,14 @@ module.exports.login = async(req, res) => {
 
     const user = await User.findOne({email, password});
 
+    
     if(!user) {
         res.status(404).json({
             status: false,
             message: 'User not exist!!'
         })
     }
-
+    
     const payload = {
         userId: user._id
     }
@@ -49,5 +51,34 @@ module.exports.login = async(req, res) => {
         status: true,
         token
     })
+}
 
+
+module.exports.protect = async(req, res, next) => {
+    let token;
+    if(req.headers.authorization && req.headers.authorization.startsWith("Bearer")){
+        token = req.headers.authorization.split(" ")[1];
+    }
+
+    if(!token) {
+        res.status(401).json({
+            status: false,
+            message: 'You are not logged in! Please login....'
+        })
+    }
+
+    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET)
+    console.log('decoded--------', decoded.userId);
+
+    const currentUser = await User.findById(decoded.userId);
+
+    if(!currentUser){
+        res.status(400).json({
+            status: false,
+            message: 'The user belonging to this token does no longer exitst'
+        })
+    }
+
+    req.user = currentUser;
+    next();
 }
