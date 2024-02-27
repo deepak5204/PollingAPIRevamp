@@ -1,11 +1,12 @@
 const User = require('../modals/User');
 const jwt = require('jsonwebtoken');
 const {promisify} = require('util');
+const bcrypt = require('bcryptjs');
 
 module.exports.signUp = async(req, res) => {
     const {name, email, phoneNo, password} = req.body
 
-    const user = await User.find({email});
+    const user = await User.findOne({email});
     if(user){
         res.status(400).json({
             status: false,
@@ -13,11 +14,13 @@ module.exports.signUp = async(req, res) => {
         })
     }
 
+    const hashPassword = await bcrypt.hash(password, 12);
+
     const userData = await User.create({
         name,
         email,
         phoneNo,
-        password
+        password: hashPassword
     })
 
     res.status(201).json({
