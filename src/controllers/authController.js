@@ -40,9 +40,18 @@ module.exports.login = async(req, res) => {
         })
     }
 
-    const user = await User.findOne({email, password});
-
     
+    
+    const user = await User.findOne({email});
+    const match = await bcrypt.compare(password, user.password);
+
+    if(!match){
+        res.status(400).json({
+            status: false,
+            message: 'Incorrect email or password'
+        })  
+    }
+   
     if(!user) {
         res.status(404).json({
             status: false,
