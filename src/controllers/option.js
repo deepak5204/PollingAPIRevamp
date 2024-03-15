@@ -1,7 +1,7 @@
 const Option = require('../modals/Options');
 
 module.exports.createOption = async(req, res) => {
-    // console.log("hello from option controller");
+    const questionId = req.params.id;
     const { content } = req.body
 
     const option = await Option.create({
