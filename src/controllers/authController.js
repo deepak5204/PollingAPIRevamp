@@ -101,3 +101,16 @@ module.exports.protect = async(req, res, next) => {
     req.user = currentUser;
     next();
 }
+
+
+exports.restrictTo = (...roles) => {
+    return (req, res, next) => {
+      if (!roles.includes(req.user.role)) {
+         res.status(400).json({
+            status: false,
+            message: 'You do not have permission to do this action'
+        })
+      }
+      next();
+    };
+  };
