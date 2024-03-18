@@ -46,11 +46,11 @@ module.exports.createOption = async (req, res) => {
 };
 
 //delete an option on the basis of its id
-module.exports.optionDelete = async (req, res) => {
-  let id = req.params.id;
+module.exports.deleteOption = async (req, res) => {
+  let optionId = req.params.id;
 
   //chek and find option exits or not
-  let option = await Option.findById(id);
+  let option = await Option.findById(optionId);
 
   // if option present then check for vote
   // if option has vote then don't delete
@@ -64,7 +64,7 @@ module.exports.optionDelete = async (req, res) => {
 
   // delete option from Question's options array
   await Question.findByIdAndUpdate(option.question, {
-    $pull: { options: id },
+    $pull: { options: optionId },
   });
 
   // delete option from option
