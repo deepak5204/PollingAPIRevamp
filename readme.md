@@ -28,3 +28,35 @@ The Polling API Backend is a Node.js application that serves as the backend for 
 - JavaScript
 - MongoDB
 - JSON Web Tokens (JWT) for authentication
+
+
+
+
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/deepak5204/PollingAPIRevamp.git
+
+
+2. Navigate to the project directory:
+    ```bash
+    cd pollingAPIRevamp
+
+3. Install dependencies:
+    ```bash
+    npm install
+
+4. Set up environment variables. Create a .env file in the root directory and add the following:
+    ```bash 
+    - PORT=3000
+    - MONGODB_URI=your_mongodb_connection_string
+    - JWT_SECRET=your_jwt_secret_key
+
+<br>
+    Replace your_mongodb_connection_string with your MongoDB connection string and your_jwt_secret_key with a secret key for JWT token generation.
+
+
+
