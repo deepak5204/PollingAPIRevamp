@@ -1,21 +1,24 @@
 const Option = require("../modals/Options");
+const Question = require('../modals/Question');
+
+// module.exports.createOption = async (req, res) => {
+//   const questionId = req.params.id;
+//   const { content } = req.body;
+
+//   const option = await Option.create({
+//     content,
+//   });
+
+//   res.status(201).json({
+//     success: true,
+//     option,
+//   });
+// };
 
 module.exports.createOption = async (req, res) => {
-  const questionId = req.params.id;
-  const { content } = req.body;
 
-  const option = await Option.create({
-    content,
-  });
-
-  res.status(201).json({
-    success: true,
-    option,
-  });
-};
-
-module.exports.createOption = async (req, res) => {
   try {
+    console.log('you are from create option section:')
     let id = req.params.id;
     let question = await Question.findById(id);
 
@@ -26,10 +29,10 @@ module.exports.createOption = async (req, res) => {
         question: req.params.id,
       });
       option.link_vote =
-        "http://localhost:5000/options/" + option.id + "/add_vote";
+        "http://localhost:5000/v2/option/addvote/" + option.id ;
       option.save();
       question.options.push(option);
-      question.save();
+      question.save(); 
 
       res.status(200).json({
         option,
@@ -78,10 +81,12 @@ module.exports.deleteOption = async (req, res) => {
 
 //adding vote to an option for particular question
 module.exports.addVote = async (req, res) => {
-  let id = req.params.id;
+  let optionId = req.params.id;
+  
 
   //find option if present then vote to it
-  await Option.findByIdAndUpdate(id, { $inc: { votes: 1 } });
+  const option = await Option.findByIdAndUpdate(optionId, { $inc: { votes: 1 } });
+  console.log('0000000000000-------------', option)
 
   res.status(200).json({
     data: {
