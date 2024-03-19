@@ -1,20 +1,6 @@
 const Option = require("../modals/Options");
 const Question = require('../modals/Question');
 
-// module.exports.createOption = async (req, res) => {
-//   const questionId = req.params.id;
-//   const { content } = req.body;
-
-//   const option = await Option.create({
-//     content,
-//   });
-
-//   res.status(201).json({
-//     success: true,
-//     option,
-//   });
-// };
-
 module.exports.createOption = async (req, res) => {
 
   try {
@@ -82,11 +68,8 @@ module.exports.deleteOption = async (req, res) => {
 //adding vote to an option for particular question
 module.exports.addVote = async (req, res) => {
   let optionId = req.params.id;
-  
-
   //find option if present then vote to it
-  const option = await Option.findByIdAndUpdate(optionId, { $inc: { votes: 1 } });
-  console.log('0000000000000-------------', option)
+  await Option.findByIdAndUpdate(optionId, { $inc: { votes: 1 } });
 
   res.status(200).json({
     data: {
