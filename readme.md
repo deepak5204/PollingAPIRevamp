@@ -29,10 +29,6 @@ The Polling API Backend is a Node.js application that serves as the backend for 
 - MongoDB
 - JSON Web Tokens (JWT) for authentication
 
-
-
-
-
 ## Installation
 
 1. Clone the repository:
@@ -40,21 +36,29 @@ The Polling API Backend is a Node.js application that serves as the backend for 
    ```bash
    git clone https://github.com/deepak5204/PollingAPIRevamp.git
 
+   ```
 
 2. Navigate to the project directory:
-    ```bash
-    cd pollingAPIRevamp
+
+   ```bash
+   cd pollingAPIRevamp
+
+   ```
 
 3. Install dependencies:
-    ```bash
-    npm install
+
+   ```bash
+   npm install
+
+   ```
 
 4. Set up environment variables. Create a .env file in the root directory and add the following:
-    ```bash 
-    - PORT=5000
-    - MONGODB_URI=your_mongodb_connection_string
-    - JWT_SECRET=your_jwt_secret_key
-    - JWT_EXPIRESIN = 5h
+   ```bash
+   - PORT=5000
+   - MONGODB_URI=your_mongodb_connection_string
+   - JWT_SECRET=your_jwt_secret_key
+   - JWT_EXPIRESIN = 5h
+   ```
 
 <br>
     Replace your_mongodb_connection_string with your MongoDB connection string and your_jwt_secret_key with a secret key for JWT token generation.
@@ -62,9 +66,48 @@ The Polling API Backend is a Node.js application that serves as the backend for 
 <br>
 
 5. Start the server:
-    ```bash 
-    npm start
-    
+   ```bash
+   npm start
+
+   ```
+
+<br>
+
+# Usage
+
+To use the API, you can interact with it using tools like Postman, cURL, or any other HTTP client.
+
+# API Endpoints
+
+### Authentication
+
+- POST /v2/user/signup: Register a new user.
+
+```bash
+    curl -X POST http://localhost:5000/v2/user/signup \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "exampleuser",
+    "email": "example@example.com",
+    "phoneNo": "123456789",
+    "password": "examplepassword"
+}'
+```
+<br>
+This command sends a POST request to the '/v2/user/signup' endpoint with a JSON payload containing the user's name, email, phone number, and password. It registers a new user with the provided information.
 
 
+<br>
 
+- POST /v2/user/login: Login and get a JWT token.
+```bash 
+    curl -X POST http://localhost:5000/v2/user/login \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "example@example.com",
+    "password": "examplepassword"
+}'
+
+```
+<br>
+This command sends a POST request to the '/v2/user/login' endpoint with a JSON payload containing the user's email and password. It authenticates the user and returns a JWT token if the credentials are valid.
