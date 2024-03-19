@@ -81,6 +81,9 @@ To use the API, you can interact with it using tools like Postman, cURL, or any 
 
 ### Authentication
 
+-   Only administrators can create, update, and delete questions and options.
+-   Regular users have view-only access to questions and options.
+
 - POST /v2/user/signup: Register a new user.
 
 ```bash
