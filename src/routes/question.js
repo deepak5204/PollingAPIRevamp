@@ -10,7 +10,7 @@ router.get('/:id', getQuestionById);
 
 router.get('/', getAllQuestions)
 
-router.delete('/:id', deleteQuestion);
+router.delete('/:id', protect, restrictTo('ADMIN'), deleteQuestion);
 
 
 
