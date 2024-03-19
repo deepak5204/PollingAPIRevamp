@@ -51,12 +51,20 @@ The Polling API Backend is a Node.js application that serves as the backend for 
 
 4. Set up environment variables. Create a .env file in the root directory and add the following:
     ```bash 
-    - PORT=3000
+    - PORT=5000
     - MONGODB_URI=your_mongodb_connection_string
     - JWT_SECRET=your_jwt_secret_key
+    - JWT_EXPIRESIN = 5h
 
 <br>
     Replace your_mongodb_connection_string with your MongoDB connection string and your_jwt_secret_key with a secret key for JWT token generation.
+<br>
+<br>
+
+5. Start the server:
+    ```bash 
+    npm start
+    
 
 
 
