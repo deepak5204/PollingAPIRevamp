@@ -124,7 +124,7 @@ This command sends a POST request to the '/v2/user/login' endpoint with a JSON p
 ### Options
 
 -   POST /v2/option/:questionId : Add an option to a question.
--   PUT /v2/option/addvote/:optionId : Add vote an option for a question.
+-   GET /v2/option/addvote/:optionId : Add vote an option for a question.
 -   DELETE /v2/option/:optionId : Delete an option from a question.
 
 
