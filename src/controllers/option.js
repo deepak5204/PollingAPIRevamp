@@ -2,17 +2,15 @@ const Option = require("../modals/Options");
 const Question = require('../modals/Question');
 
 module.exports.createOption = async (req, res) => {
-
   try {
-    console.log('you are from create option section:')
-    let id = req.params.id;
-    let question = await Question.findById(id);
+    let questionId = req.params.id;
+    let question = await Question.findById(questionId);
 
     if (question) {
       let option = await Option.create({
         content: req.body.content,
         votes: req.body.votes,
-        question: req.params.id,
+        question: questionId,
       });
       option.link_vote =
         "http://localhost:5000/v2/option/addvote/" + option.id ;
@@ -21,13 +19,11 @@ module.exports.createOption = async (req, res) => {
       question.save(); 
 
       res.status(200).json({
+        status: true,
+        message: "option created",
         option,
-        data: {
-          message: "option created",
-        },
       });
     }
-    res.status(200).json({ question });
   } catch (err) {
     console.log("Error : ", err);
     return;
@@ -57,7 +53,7 @@ module.exports.deleteOption = async (req, res) => {
   });
 
   // delete option from option
-  await Option.findByIdAndDelete(id);
+  await Option.findByIdAndDelete(optionId);
   res.status(200).json({
     data: {
       message: "Option deleted successfully",

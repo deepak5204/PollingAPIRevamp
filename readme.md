@@ -111,3 +111,20 @@ This command sends a POST request to the '/v2/user/signup' endpoint with a JSON 
 ```
 <br>
 This command sends a POST request to the '/v2/user/login' endpoint with a JSON payload containing the user's email and password. It authenticates the user and returns a JWT token if the credentials are valid.
+
+**Make sure to replace *http://localhost:5000* with the actual base URL of your API server.**
+
+### Questions
+
+-   POST /v2/question : Create a new question.
+-   GET /v2/question/:questionId : Get a specific question by ID.
+-   GET /v2/question : Get all questions.
+-   DELETE /v2/question/:questionId : Delete a specific question by ID.
+
+### Options
+
+-   POST /v2/option/:questionId : Add an option to a question.
+-   PUT /v2/option/addvote/:optionId : Add vote an option for a question.
+-   DELETE /v2/option/:optionId : Delete an option from a question.
+
+
