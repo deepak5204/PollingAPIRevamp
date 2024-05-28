@@ -30,6 +30,32 @@ module.exports.createOption = async (req, res) => {
   }
 };
 
+// Get option
+module.exports.getOption = async (req, res) => {
+  let optionId = req.params.id;
+
+  const option = await Option.findById(optionId);
+
+  res.status(200).json({
+    message: 'Success',
+    option
+  })
+} 
+
+
+//Update Option
+module.exports.updateOption = async (req, res) => {
+  let optionId = req.params.id;
+  const updateData = req.body
+
+  const option = await Option.findByIdAndUpdate(optionId, updateData, {new: true});
+
+  res.status(200).json({
+    message: 'Successfully updated',
+    option
+  })
+}
+
 //delete an option on the basis of its id
 module.exports.deleteOption = async (req, res) => {
   let optionId = req.params.id;
