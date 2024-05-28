@@ -1,6 +1,6 @@
-const User = require("../modals/User");
 const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
+const User = require("../modals/User");
 const bcrypt = require("bcryptjs");
 
 module.exports.signUp = async (req, res) => {
@@ -86,7 +86,9 @@ module.exports.protect = async (req, res, next) => {
     });
   }
 
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  const verifyToken = promisify(jwt.verify);
+
+  const decoded = await verifyToken(token, process.env.JWT_SECRET);
 
   const currentUser = await User.findById(decoded.userId);
 
