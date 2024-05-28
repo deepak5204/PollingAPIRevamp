@@ -36,6 +36,24 @@ module.exports.getAllQuestions = async (req, res) => {
   });
 };
 
+
+
+//Update Question
+module.exports.updateQuestion = async (req, res) => {
+  let questionId = req.params.id;
+  let updateData = req.body;
+  const question = await Question.findByIdAndUpdate(questionId, updateData, {
+    new: true
+  });
+
+  res.status(200).json({
+    message: 'Successfully updated',
+    question
+  })
+
+}
+
+
 // Delete question
 module.exports.deleteQuestion = async (req, res) => {
     let id = req.params.id;

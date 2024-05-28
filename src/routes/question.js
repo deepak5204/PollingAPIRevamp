@@ -1,16 +1,18 @@
 const express = require('express');
-const { createQuestions, getQuestionById, getAllQuestions, deleteQuestion } = require('../controllers/question');
+const { createQuestions, getQuestionById, getAllQuestions, deleteQuestion, updateQuestion } = require('../controllers/question');
 const { protect, restrictTo } = require('../controllers/authController');
 
 const router = express.Router();
 
 router.route('/').post(protect, restrictTo('ADMIN'), createQuestions)
 
-router.get('/:id', getQuestionById);
+router.route('/:id').get( getQuestionById);
 
-router.get('/', getAllQuestions)
+router.route('/').get(getAllQuestions)
 
-router.delete('/:id', protect, restrictTo('ADMIN'), deleteQuestion);
+router.route('/:id').patch(protect, restrictTo('ADMIN'), updateQuestion)
+
+router.route('/:id').delete(protect, restrictTo('ADMIN'), deleteQuestion);
 
 
 
