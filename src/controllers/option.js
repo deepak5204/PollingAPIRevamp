@@ -6,6 +6,12 @@ module.exports.createOption = async (req, res) => {
     let questionId = req.params.id;
     let question = await Question.findById(questionId);
 
+    if(!question){
+      res.status(400).json({
+        message: 'Provide a correct question id'
+      });
+    }
+
     if (question) {
       let option = await Option.create({
         content: req.body.content,
