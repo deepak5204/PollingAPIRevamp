@@ -24,6 +24,11 @@ module.exports.createQuestions = async (req, res) => {
 module.exports.getQuestionById = async (req, res) => {
   try {
     let question = await Question.findById(req.params.id).populate("options");
+    if(!question){
+      res.status(400).json({
+        message: 'Question not exitst!'
+      })
+    }
     res.status(200).json({
       message: "Success",
       data: { question },
